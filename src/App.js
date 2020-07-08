@@ -16,15 +16,18 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
 
-  useEffect(async () => {
-    setLoading(true);
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
 
-    const res = await axios.get(
-      `https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-    );
+      const res = await axios.get(
+        `https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+      );
 
-    setUsers(res.data);
-    setLoading(false);
+      setUsers(res.data);
+      setLoading(false);
+    }
+    fetchData();
   }, []);
 
   // Search Github users
